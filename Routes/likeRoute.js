@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const auth = require("../middlewares/auth");
+const auth = require("../Middlewares/auth");
 const Blog = require("../Models/blogModel");
 const Like = require("../Models/likeModel");
 

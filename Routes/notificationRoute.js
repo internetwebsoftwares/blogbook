@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const auth = require("../middlewares/auth");
+const auth = require("../Middlewares/auth");
 const Notification = require("../Models/notificationsModel");
 
 //Read all your notifications

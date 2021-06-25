@@ -1,4 +1,4 @@
-const auth = require("../middlewares/auth");
+const auth = require("../Middlewares/auth");
 const Blog = require("../Models/blogModel");
 const Comment = require("../Models/commentModel");
 const Report = require("../Models/reportModel");
