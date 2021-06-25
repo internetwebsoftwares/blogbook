@@ -10,10 +10,9 @@ const Report = require("../Models/reportModel");
 const isEmail = require("validator/lib/isEmail");
 const { superChecker } = require("simplepasswordchecker");
 const bcrypt = require("bcryptjs");
-const auth = require("../middlewares/auth");
+const auth = require("../Middlewares/auth");
 const multer = require("multer");
 const sharp = require("sharp");
-const jwt = require("jsonwebtoken");
 const isFollowing = require("../Middlewares/isFollowing");
 
 //Sign up
