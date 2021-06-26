@@ -16,10 +16,21 @@ async function isFollowing(req, res, next) {
       ],
     });
 
+    const token = req.header("Authorization");
+    const decoded = jwt.verify(token, process.env.JWT_AUTH_TOKEN);
+    const user = await User.findOne({
+      _id: decoded._id,
+      "tokens.token": token,
+    });
+
+    if (!user) {
+      throw Error();
+    }
+
     const isFollowing = totalFollows.filter((doc) => {
       return (
-        doc.followerUsername === req.params.username &&
-        doc.followerUsername === req.params.username
+        doc.followerUsername === user.username &&
+        doc.followingToUsername === req.params.username
       );
     });
 
@@ -38,16 +49,6 @@ async function isFollowing(req, res, next) {
       req.totalFollowings = totalFollowings.length;
       next();
       return;
-    }
-    const token = req.header("Authorization");
-    const decoded = jwt.verify(token, process.env.JWT_AUTH_TOKEN);
-    const user = await User.findOne({
-      _id: decoded._id,
-      "tokens.token": token,
-    });
-
-    if (!user) {
-      throw Error();
     }
 
     // const isFollowing = await Follow.findOne({
