@@ -422,7 +422,7 @@ router.get("/user/search/user/:searchQuery/:pageNo", async (req, res) => {
       .limit(10)
       .skip(parseInt(req.params.pageNo) * 10 - 10)
       .sort({
-        followers: "-1",
+        followers: "1",
       });
 
     res.send(users);
