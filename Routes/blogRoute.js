@@ -18,7 +18,7 @@ router.post("/blog/create", auth, async (req, res) => {
       return res.send("Title is required.");
     }
     if (!description) {
-      description = `A blog created by ${req.user.username}, in this blog the author focuses on ${category}`;
+      description = `This blog created by ${req.user.username}, in this blog the author focuses on "${category}"`;
     }
     if (!body) {
       return res.send("Please add body.");

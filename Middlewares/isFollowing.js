@@ -5,17 +5,6 @@ const Blog = require("../Models/blogModel");
 
 async function isFollowing(req, res, next) {
   try {
-    const totalPosts = await Blog.find({
-      author: req.params.username,
-    }).countDocuments();
-
-    const totalFollows = await Follow.find({
-      $or: [
-        { followingToUsername: req.params.username },
-        { followerUsername: req.params.username },
-      ],
-    });
-
     const token = req.header("Authorization");
     const decoded = jwt.verify(token, process.env.JWT_AUTH_TOKEN);
     const user = await User.findOne({
@@ -26,6 +15,17 @@ async function isFollowing(req, res, next) {
     if (!user) {
       throw Error();
     }
+
+    const totalPosts = await Blog.find({
+      author: req.params.username,
+    }).countDocuments();
+
+    const totalFollows = await Follow.find({
+      $or: [
+        { followingToUsername: req.params.username },
+        { followerUsername: req.params.username },
+      ],
+    });
 
     const isFollowing = totalFollows.filter((doc) => {
       return (
@@ -50,11 +50,6 @@ async function isFollowing(req, res, next) {
       next();
       return;
     }
-
-    // const isFollowing = await Follow.findOne({
-    //   followingToUsername: req.params.username,
-    //   followerUsername: user.username,
-    // });
 
     if (isFollowing.length > 0) {
       req.isFollowing = true;
